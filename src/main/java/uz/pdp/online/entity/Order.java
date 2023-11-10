@@ -9,6 +9,7 @@ import lombok.Setter;
 import uz.pdp.online.entity.utils.Currency;
 import uz.pdp.online.entity.utils.Measurement;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -29,6 +30,7 @@ public class Order {
     private Measurement measurement = Measurement.QUANTITY;
     private Currency currency = Currency.UZS;
     private Long amount;
+    private BigDecimal total;
     private Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
 }

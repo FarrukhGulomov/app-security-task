@@ -20,8 +20,11 @@ public class User {
     private String firstName;
     private String lastName;
     private String address;
+    @Column(unique = true)
     private String phoneNumber;
+    @Column(unique = true)
     private String email;
+    private String password;
     private Boolean active=true;
     private ROLE role=ROLE.CUSTOMER;
 }
