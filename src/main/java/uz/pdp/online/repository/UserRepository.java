@@ -6,11 +6,13 @@ import uz.pdp.online.entity.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Long> {
-    boolean findByPhoneNumber(String phoneNumber);
-    boolean findByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
 
-    boolean findByEmailAndId(String email, Long id);
-    boolean findByPhoneNumberAndId(String phoneNumber, Long id);
+    boolean existsByEmail(String email);
+
+    boolean existsByEmailAndIdNot(String email, Long id);
+    boolean existsByPhoneNumberAndIdNot(String phoneNumber, Long id);
 
     Optional<User> findByEmailAndPassword(String email, String password);
+
 }

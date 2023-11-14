@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import uz.pdp.online.repository.UserRepository;
 import uz.pdp.online.service.UserService;
@@ -22,11 +24,7 @@ public class SecurityConfig  {
 
 
 
-   private final UserService userService;
 
-    public SecurityConfig(UserService userService) {
-        this.userService = userService;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -43,10 +41,27 @@ public class SecurityConfig  {
 
     }
 
+@Bean
 public UserDetailsService userDetailsService(){
+   // SUPER_ADMIN,MODERATOR,OPERATOR,CUSTOMER
+    UserDetails customer = User.builder().username("customer")
+            .password(passwordEncoder().encode("customer"))
+            .roles("CUSTOMER").build();
+    UserDetails operator = User.builder().username("operator")
+            .password(passwordEncoder().encode("operator"))
+            .roles("OPERATOR").build();
+    UserDetails superAdmin = User.builder().username("super_admin")
+            .password(passwordEncoder().encode("super_admin"))
+            .roles("SUPER_ADMIN").build();
+    UserDetails moderator=User.builder().username("moderator")
+            .password(passwordEncoder().encode("moderator"))
+            .roles("MODERATOR").build();
 
-    User.builder().username("customer")
+
+    return new InMemoryUserDetailsManager(customer,superAdmin,moderator,operator);
+
 }
+
 
 @Bean
     PasswordEncoder passwordEncoder(){

@@ -25,8 +25,8 @@ public class UserService {
     }
 
     public HttpEntity<?> createUser(User user) {
-        boolean byEmail = userRepository.findByEmail(user.getEmail());
-        boolean byPhoneNumber = userRepository.findByPhoneNumber(user.getPhoneNumber());
+        boolean byEmail = userRepository.existsByEmail(user.getEmail());
+        boolean byPhoneNumber = userRepository.existsByPhoneNumber(user.getPhoneNumber());
 
         if (!byEmail) {
             if (!byPhoneNumber) {
@@ -55,8 +55,8 @@ public class UserService {
     public ResponseEntity<?> editUser(Long id, @RequestBody User user) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) return ResponseEntity.status(404).build();
-        boolean byEmailAndId = userRepository.findByEmailAndId(user.getEmail(), id);
-        boolean byPhoneNumberAndId = userRepository.findByPhoneNumberAndId(user.getPhoneNumber(), id);
+        boolean byEmailAndId = userRepository.existsByEmailAndIdNot(user.getEmail(), id);
+        boolean byPhoneNumberAndId = userRepository.existsByPhoneNumberAndIdNot(user.getPhoneNumber(), id);
         if (byEmailAndId) return ResponseEntity.status(401).build();
         if (byPhoneNumberAndId) return ResponseEntity.status(401).build();
         User editingUser = optionalUser.get();
