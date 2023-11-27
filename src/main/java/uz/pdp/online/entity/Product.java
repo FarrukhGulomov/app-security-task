@@ -26,8 +26,10 @@ public class Product extends General {
     private String description;
 
     @ManyToMany
-    private List<Characteristic> characteristics;
+    private List<Property> Properties;
 
     @OneToMany
     private List<Attachment> productPhotos;
+
+    private Double amount;
 }

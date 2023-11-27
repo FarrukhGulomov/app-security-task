@@ -2,16 +2,14 @@ package uz.pdp.online.entity;
 
 import jakarta.annotation.security.DenyAll;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import uz.pdp.online.entity.utils.Currency;
 import uz.pdp.online.entity.utils.Measurement;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,11 +23,10 @@ public class Order {
     private Long id;
     @ManyToOne
     private User user;
-    @ManyToOne
-    private Product product;
+    @ManyToMany
+    private List<Product> products;
     private Measurement measurement = Measurement.QUANTITY;
     private Currency currency = Currency.UZS;
-    private Long amount;
     private BigDecimal total;
     private Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 

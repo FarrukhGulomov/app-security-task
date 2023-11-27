@@ -1,5 +1,6 @@
 package uz.pdp.online.dto;
 
+import com.fasterxml.jackson.databind.node.DoubleNode;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -25,13 +26,15 @@ public class ProductDto {
 
     private BigDecimal price;
 
+    private Double amount;
+
     private Long brandId;
 
     private Long categoryId;
 
     private String description;
 
-    private List<Long> characteristicsIds;
+    private List<Long> propertiesIds;
 
     private List<Long> productPhotosIds;
 

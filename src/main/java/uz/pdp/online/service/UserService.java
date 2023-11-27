@@ -61,6 +61,7 @@ public class UserService {
         if (byPhoneNumberAndId) return ResponseEntity.status(401).build();
         User editingUser = optionalUser.get();
         editingUser.setEmail(user.getEmail());
+        editingUser.setPassword(user.getPassword());
         editingUser.setAddress(user.getAddress());
         editingUser.setLastName(user.getLastName());
         editingUser.setFirstName(user.getFirstName());
